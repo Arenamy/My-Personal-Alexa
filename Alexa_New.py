@@ -1,11 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
+# My version of Avi Upadhyay's code. Can you check on social midias (Youtube: https://www.youtube.com/c/AviUpadhyay/about, Instagram and Twitter)
+# Main
 
 # Libs
-# cd F:\Program Files\Anaconda>python -m PyQt5.uic.pyuic -x RehoboamUI.ui -o RehoboamUI.py
 import pyttsx3
 import speech_recognition as sr
 import datetime
@@ -31,35 +27,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUiType
 from RehoboamUI import Ui_Form
-#from ipynb.fs.full.RehoboamUI import *
-
-
-# In[3]:
-
-
-def override_where():
-    """ overrides certifi.core.where to return actual location of cacert.pem"""
-    # change this to match the location of cacert.pem
-    return os.path.abspath("cacert.pem")
-
-
-# is the program compiled?
-if hasattr(sys, "frozen"):
-    import certifi.core
-
-    os.environ["REQUESTS_CA_BUNDLE"] = override_where()
-    certifi.core.where = override_where
-
-    # delay importing until after where() has been replaced
-    import requests.utils
-    import requests.adapters
-    # replace these variables in case these modules were
-    # imported before we replaced certifi.core.where
-    requests.utils.DEFAULT_CA_BUNDLE_PATH = override_where()
-    requests.adapters.DEFAULT_CA_BUNDLE_PATH = override_where()
-
-
-# In[2]:
 
 
 listener = sr.Recognizer()
@@ -97,19 +64,12 @@ def news():
         speak(f"today's {day[i]} news is: {head[i]}")
 
 
-# In[4]:
-
-
 class WorkerSignals(QObject):
 # 1
     finished = pyqtSignal()
     error = pyqtSignal(tuple)
     result = pyqtSignal(object)
     progress = pyqtSignal(int)
-
-
-# In[ ]:
-
 
 class Worker(QRunnable):
 
@@ -294,18 +254,8 @@ class Worker(QRunnable):
             self.signals.finished.emit()  # Done
 
 
-# In[ ]:
-
-
-
-
-
-# In[6]:
-
-
 class MainWindow(QMainWindow):
 
-# 2
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.counter = 0
@@ -355,16 +305,9 @@ class MainWindow(QMainWindow):
         self.threadpool.start(worker)
 
 
-# In[ ]:
-
-
 app = QApplication([])
 window = MainWindow()
 app.exec_()
-
-
-# In[ ]:
-
 
 
 
